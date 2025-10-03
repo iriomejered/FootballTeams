@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Teams
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openForm('add')" class="add_button">
+        Add team
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Teams</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item *ngFor="let b of teams; let i = index">
+      <ion-label>
+        <h1>{{b.name}}</h1>
+        <p>Player amount: {{b.player_amount}}</p>
+        <p>League: {{b.league}}</p>
+        <p>Trophies: {{b.trophies}}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="openForm('edit', i)">Edit</ion-button>
+        <ion-button color="danger" (click)="deleteTeam(i)">Delete</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="showForm" style="background: #000000; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); padding: 16px; margin: 16px; position: fixed; top: 20%; left: 50%; transform: translateX(-50%); z-index: 1000; width: 90%; max-width: 400px;">
+    <h2>{{ formMode === 'edit' ? 'Edit team' : 'Add team' }}</h2>
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input [(ngModel)]="formTeam.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Player Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="formTeam.player_amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">League</ion-label>
+      <ion-input [(ngModel)]="formTeam.league"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Trophies</ion-label>
+      <ion-input type="number" [(ngModel)]="formTeam.trophies"></ion-input>
+    </ion-item>
+    <div style="display: flex; justify-content: flex-end; margin-top: 16px; gap: 8px;">
+      <ion-button color="primary" (click)="saveForm()">Save</ion-button>
+      <ion-button color="medium" (click)="closeForm()">Cancel</ion-button>
+    </div>
+  </div>
+</ion-content>

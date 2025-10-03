@@ -1,0 +1,7 @@
+{
+  "name": "AE1_IRIOME",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

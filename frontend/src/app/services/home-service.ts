@@ -9,7 +9,23 @@ export class HomeService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getTeams(){
+    getTeams() {
         return this.httpClient.get(this.endpoint);
+    }
+
+    getTeam(id: number) {
+        return this.httpClient.get(`${this.endpoint}/${id}`);
+    }
+
+    addTeam(team: any) {
+        return this.httpClient.post(this.endpoint, team);
+    }
+
+    updateTeam(id: number, team: any) {
+        return this.httpClient.put(`${this.endpoint}/${id}`, team);
+    }
+
+    deleteTeam(id: number) {
+        return this.httpClient.delete(`${this.endpoint}/${id}`);
     }
 }

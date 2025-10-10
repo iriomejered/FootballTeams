@@ -42,13 +42,20 @@ export class HomePage {
     }
   }
 
+
   saveForm() {
     if (this.formMode === 'edit' && this.formIndex !== null) {
-      this.teams[this.formIndex] = { ...this.formTeam };
+      const team = this.teams[this.formIndex];
+      this.homeService.updateTeam(team.id, this.formTeam).subscribe(() => {
+        this.loadTeams();
+        this.closeForm();
+      });
     } else {
-      this.teams.push({ ...this.formTeam });
+      this.homeService.addTeam(this.formTeam).subscribe(() => {
+        this.loadTeams();
+        this.closeForm();
+      });
     }
-    this.closeForm();
   }
 
   closeForm() {
@@ -58,6 +65,9 @@ export class HomePage {
   }
 
   deleteTeam(index: number) {
-    this.teams.splice(index, 1);
+    const team = this.teams[index];
+    this.homeService.deleteTeam(team.id).subscribe(() => {
+      this.loadTeams();
+    });
   }
 }
